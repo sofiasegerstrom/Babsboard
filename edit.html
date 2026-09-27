@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edit Barbara's Board</title><style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#f4f1ea;color:#26322e;margin:0;padding:18px;max-width:760px}
+h1{font-size:28px}.box{background:white;padding:15px;border-radius:12px;margin:12px 0;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+label{font-weight:700;display:block;margin:8px 0 5px}input,textarea{width:100%;box-sizing:border-box;font-size:18px;padding:10px;border:1px solid #bbb;border-radius:8px}
+textarea{min-height:72px}.row{display:flex;gap:8px;align-items:center;margin:8px 0}.row input.time{width:110px}.row input.text{flex:1}.row button{padding:10px}
+button.main{width:100%;background:#2e6656;color:white;border:0;border-radius:10px;padding:15px;font-size:21px;font-weight:700}
+#status{text-align:center;font-weight:700;margin:10px}.note{font-size:14px;color:#65716b}
+</style></head><body>
+<h1>Edit Barbara's Board</h1><div class="note">Private editor. Changes appear on the display after it refreshes.</div>
+<div class="box"><label>Recurring message</label><textarea id="recurring"></textarea><label>Today's intro</label><textarea id="intro"></textarea></div>
+<div class="box"><label>Today's timeline</label><div id="rows"></div><button onclick="addRow()">+ Add item</button></div>
+<div class="box"><label>Message from family</label><textarea id="family"></textarea><label>Helpful reminder</label><textarea id="reminder"></textarea><label>Bottom reassurance</label><input id="reassure"></div>
+<button class="main" onclick="save()">SAVE CHANGES</button><div id="status"></div>
+<script>
+var DB="https://barbarasboard-default-rtdb.firebaseio.com";
+var data={timeline:[]};
+function E(id){return document.getElementById(id)}
+function addRow(x){x=x||{time:"",text:"",done:false};var d=document.createElement("div");d.className="row";d.innerHTML='<input type="checkbox" class="done" '+(x.done?'checked':'')+'><input class="time" placeholder="Time"><input class="text" placeholder="What is happening?"><button type="button">×</button>';d.getElementsByClassName("time")[0].value=x.time||"";d.getElementsByClassName("text")[0].value=x.text||"";d.getElementsByTagName("button")[0].onclick=function(){d.parentNode.removeChild(d)};E("rows").appendChild(d)}
+function fill(d){data=d||{};["recurring","intro","family","reminder","reassure"].forEach(function(k){E(k).value=data[k]||""});E("rows").innerHTML="";var a=data.timeline||[];for(var i=0;i<a.length;i++)addRow(a[i]);if(!a.length)addRow()}
+function load(){var x=new XMLHttpRequest();x.open("GET",DB+"/board.json",true);x.onreadystatechange=function(){if(x.readyState===4){if(x.status===200){var d=null;try{d=JSON.parse(x.responseText)}catch(e){};fill(d||{})}else{E("status").innerHTML="Database is still locked. We'll set the rules next."}}};x.send()}
+function save(){var o={},keys=["recurring","intro","family","reminder","reassure"];for(var i=0;i<keys.length;i++)o[keys[i]]=E(keys[i]).value;var rs=E("rows").children;o.timeline=[];for(i=0;i<rs.length;i++)o.timeline.push({done:rs[i].getElementsByClassName("done")[0].checked,time:rs[i].getElementsByClassName("time")[0].value,text:rs[i].getElementsByClassName("text")[0].value});var x=new XMLHttpRequest();x.open("PUT",DB+"/board.json",true);x.setRequestHeader("Content-Type","application/json");x.onreadystatechange=function(){if(x.readyState===4)E("status").innerHTML=x.status>=200&&x.status<300?"✓ Saved":"Not saved — database permissions need to be set."};x.send(JSON.stringify(o))}
+load();
+</script></body></html>
