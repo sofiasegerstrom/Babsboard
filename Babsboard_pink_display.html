@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Barbara's Board</title>
+<style>
+html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#f3efe7;color:#26322e}
+*{box-sizing:border-box}
+#board{min-height:100%;padding:18px}
+.top{display:table;width:100%;border-bottom:3px solid #cad2c8;padding-bottom:10px}
+.top>div{display:table-cell;vertical-align:middle}
+#day{font-size:29px;font-weight:700}.date{font-size:21px;margin-top:3px}
+#clock{text-align:right;font-size:46px;font-weight:700;white-space:nowrap}
+.greeting{text-align:center;font-size:31px;font-weight:700;margin:10px 0 7px}.recurring{max-width:680px;margin:0 auto 9px;background:#e4ebe5;border-radius:10px;padding:8px 14px;text-align:center;font-size:18px;font-weight:600;line-height:1.25}
+.intro{background:#fff;border-radius:14px;padding:14px 18px;margin:0 auto 13px;box-shadow:0 2px 7px rgba(0,0,0,.10);font-size:22px;line-height:1.35;text-align:center}
+.card{background:#fff;border-radius:14px;padding:15px 18px;margin-bottom:12px;box-shadow:0 2px 7px rgba(0,0,0,.10)}
+.label{font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#66756e;margin-bottom:8px}
+.timeline{font-size:21px}
+.item{display:table;width:100%;padding:8px 0;border-bottom:1px solid #e7e8e4}
+.item:last-child{border-bottom:0}
+.check,.when,.what{display:table-cell;vertical-align:middle}
+.check{width:38px;font-size:25px;font-weight:700}
+.when{width:115px;font-weight:700}
+.what{font-size:22px}
+.done .check{color:#3f765f}.done .what{color:#68736e;text-decoration:line-through}
+.bottom{display:table;width:100%;border-spacing:10px 0}
+.bottom .card{display:table-cell;width:50%;vertical-align:top}
+.message{font-size:20px;line-height:1.35}
+.reassure{text-align:center;font-size:21px;font-weight:600;padding:5px 10px 0}
+.night{background:#1e2724;color:#f5f0e6}.night .card,.night .intro{background:#2b3733;color:#f5f0e6}.night .recurring{background:#35443e;color:#f5f0e6}.night .label{color:#c6d0cb}.night .item{border-color:#44514c}
+@media(max-width:700px){#board{padding:11px}.greeting{font-size:27px}#clock{font-size:39px}#day{font-size:24px}.intro{font-size:19px}.timeline{font-size:18px}.what{font-size:19px}.when{width:92px}.bottom{border-spacing:6px 0}.message{font-size:18px}}
+/* Rose edition: compact landscape layout, editable fields unchanged */
+html,body{background:#fff2f6;color:#49313d}
+body{padding-bottom:0}
+.toolbar{position:sticky;top:0;background:#ffe0ea;border-bottom:1px solid #eab4c7;padding:7px 12px;gap:8px}
+.toolbar strong{font-size:16px;color:#77374f}
+.toolbar button,.actions button{background:#aa456d;padding:8px 12px;font-size:15px}
+.toolbar .hint{flex-basis:100%;font-size:12px;color:#7d5060}
+.toolbar #status{font-size:12px;color:#713c53}
+#board{padding:10px 16px;max-width:1500px;margin:auto}
+.top{border-color:#e7b4c6;padding-bottom:5px}
+#day{font-size:23px}.date{font-size:15px;margin-top:0}#clock{font-size:32px}
+.hero{display:grid;grid-template-columns:1fr 1.25fr 1.5fr;gap:10px;align-items:stretch;margin:9px 0}
+.hero>*{margin:0!important;max-width:none!important;display:flex;align-items:center;justify-content:center;padding:9px 12px!important;min-height:72px;border-radius:12px}
+.greeting{background:#fbd3e1;color:#7a3150;font-size:23px;text-align:center}
+.recurring{background:#f9dce6;color:#65364a;font-size:17px}
+.intro{background:#fffafb;font-size:18px;color:#49313d}
+.card{background:#fffafb;padding:10px 14px;margin-bottom:8px;border:1px solid #f4dce5}
+.label{font-size:13px;color:#99536d;margin-bottom:4px}
+.timeline{font-size:17px}.timeline .item{padding:4px 0}.timeline .what{font-size:17px}.timeline .when{font-size:16px;width:105px}.timeline .check{width:28px}
+.timeline .remove{background:#f9dbe5;color:#863a58;padding:3px 8px;font-size:17px}
+.actions{margin:6px}.actions button{padding:6px 10px;font-size:14px}
+.bottom{border-spacing:8px 0}.bottom .card{padding:10px 14px}
+.message{font-size:17px}.reassure{font-size:17px;padding:6px;background:#f9dce6;border-radius:10px;margin-top:6px}
+.editable{outline:2px dashed #d88eaa}.editable:focus{outline:3px solid #a8446b;background:#fff;color:#49313d}
+.editing-note{padding:6px 12px;font-size:12px;color:#805466}
+@media(min-width:900px) and (max-height:850px){.hero>*{min-height:58px}.hero{margin:6px 0}.card{padding:7px 12px}.timeline .item{padding:2px 0}.top{padding-bottom:3px}}
+@media(max-width:760px){#board{padding:10px}.hero{grid-template-columns:1fr;gap:7px}.hero>*{min-height:0;padding:9px!important}.greeting{font-size:23px}.recurring,.intro{font-size:17px}.toolbar .hint{display:none}.timeline .when{width:75px}.bottom{display:block;border-spacing:0}.bottom .card{display:block;width:100%}.toolbar{position:sticky}}
+
+/* Display matches editor layout without editing controls */
+.hero .recurring,.hero .intro{white-space:pre-wrap;overflow-wrap:anywhere;text-align:center}
+.hero .greeting{line-height:1.25}
+#syncstatus{font-size:11px!important;padding:2px!important;color:#965a72}
+#board{min-height:100vh}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.bottom{display:block}.bottom .card{display:block;width:100%}}
+
+</style>
+</head>
+<body>
+<div id="board">
+ <div class="top">
+  <div><div id="day">Friday</div><div class="date" id="date">September 25, 2026</div></div>
+  <div id="clock">10:30 AM</div>
+ </div>
+
+ <div id="syncstatus" role="status" style="font-size:13px;text-align:center;padding:5px">Connecting to updates…</div>
+ <div class="hero">
+  <div class="greeting" id="greeting">Good morning, Barbara</div>
+  <div class="recurring" id="recurring">Loading current information…</div>
+  <div class="intro" id="intro">Connecting to the board…</div>
+ </div>
+
+ <div class="card">
+  <div class="label">Today</div>
+  <div class="timeline" id="timeline">
+   <div class="item"><div class="what">Loading current schedule…</div></div>
+  </div>
+ </div>
+
+ <div class="bottom">
+  <div class="card"><div class="label">Message from family</div><div class="message" id="family">Loading…</div></div>
+  <div class="card"><div class="label">Helpful reminder</div><div class="message" id="reminder">Loading…</div></div>
+ </div>
+
+ <div class="reassure" id="reassure">Loading…</div>
+</div>
+<script>
+(function(){
+ function pad(n){return n<10?"0"+n:n}
+ function updateClock(){
+  var d=new Date(),h=d.getHours(),m=d.getMinutes(),ap=h>=12?"PM":"AM",h12=h%12||12;
+  document.getElementById("clock").innerHTML=h12+":"+pad(m)+" "+ap;
+  var days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  document.getElementById("day").innerHTML=days[d.getDay()];
+  document.getElementById("date").innerHTML=months[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+  var g=h<12?"Good morning":h<17?"Good afternoon":"Good evening";
+  document.getElementById("greeting").innerHTML=g+", Barbara";
+  // Keep the rose palette consistent throughout the day and night.
+ }
+ updateClock(); setInterval(updateClock,30000);
+ var DB="https://barbarasboard-default-rtdb.firebaseio.com";
+ var lastUpdate=0;
+ function text(id,value){document.getElementById(id).textContent=value==null?"":String(value)}
+ function render(board){
+   ["recurring","intro","family","reminder","reassure"].forEach(function(k){text(k,board[k])});
+   var root=document.getElementById("timeline");root.textContent="";
+   var rows=Array.isArray(board.timeline)?board.timeline:Object.values(board.timeline||{});
+   rows.forEach(function(r){
+     if(!r||(!r.time&&!r.text))return;
+     var item=document.createElement("div");item.className="item"+(r.done?" done":"");
+     [["check",r.done?"✓":"○"],["when",r.time||""],["what",r.text||""]].forEach(function(pair){
+       var cell=document.createElement("div");cell.className=pair[0];cell.textContent=pair[1];item.appendChild(cell);
+     });root.appendChild(item);
+   });
+   if(!root.children.length){var empty=document.createElement("div");empty.className="item";empty.textContent="No schedule items entered.";root.appendChild(empty)}
+ }
+ function refresh(){
+   var x=new XMLHttpRequest();x.open("GET",DB+"/board.json?t="+Date.now(),true);x.timeout=12000;
+   x.onreadystatechange=function(){if(x.readyState!==4)return;
+     if(x.status===200){try{var d=JSON.parse(x.responseText);if(!d||typeof d!=="object")throw Error("empty");render(d);lastUpdate=Date.now();text("syncstatus","Board updated • "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}));}catch(e){text("syncstatus","Board data unavailable — check connection");}}
+     else{text("syncstatus",lastUpdate?"Connection lost — information may be outdated":"Unable to load current board — check connection");}
+   };
+   x.ontimeout=function(){x.abort()};x.onerror=function(){text("syncstatus","Connection problem — information may be outdated")};x.send();
+ }
+ refresh();setInterval(refresh,20000);
+
+})();
+</script>
+</body>
+</html>
