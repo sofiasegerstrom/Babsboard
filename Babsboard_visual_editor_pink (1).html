@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Edit Barbara's Board</title><style>
+html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#f3efe7;color:#26322e}
+*{box-sizing:border-box}
+#board{min-height:100%;padding:18px}
+.top{display:table;width:100%;border-bottom:3px solid #cad2c8;padding-bottom:10px}
+.top>div{display:table-cell;vertical-align:middle}
+#day{font-size:29px;font-weight:700}.date{font-size:21px;margin-top:3px}
+#clock{text-align:right;font-size:46px;font-weight:700;white-space:nowrap}
+.greeting{text-align:center;font-size:31px;font-weight:700;margin:10px 0 7px}.recurring{max-width:680px;margin:0 auto 9px;background:#e4ebe5;border-radius:10px;padding:8px 14px;text-align:center;font-size:18px;font-weight:600;line-height:1.25}
+.intro{background:#fff;border-radius:14px;padding:14px 18px;margin:0 auto 13px;box-shadow:0 2px 7px rgba(0,0,0,.10);font-size:22px;line-height:1.35;text-align:center}
+.card{background:#fff;border-radius:14px;padding:15px 18px;margin-bottom:12px;box-shadow:0 2px 7px rgba(0,0,0,.10)}
+.label{font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#66756e;margin-bottom:8px}
+.timeline{font-size:21px}
+.item{display:table;width:100%;padding:8px 0;border-bottom:1px solid #e7e8e4}
+.item:last-child{border-bottom:0}
+.check,.when,.what{display:table-cell;vertical-align:middle}
+.check{width:38px;font-size:25px;font-weight:700}
+.when{width:115px;font-weight:700}
+.what{font-size:22px}
+.done .check{color:#3f765f}.done .what{color:#68736e;text-decoration:line-through}
+.bottom{display:table;width:100%;border-spacing:10px 0}
+.bottom .card{display:table-cell;width:50%;vertical-align:top}
+.message{font-size:20px;line-height:1.35}
+.reassure{text-align:center;font-size:21px;font-weight:600;padding:5px 10px 0}
+.night{background:#1e2724;color:#f5f0e6}.night .card,.night .intro{background:#2b3733;color:#f5f0e6}.night .recurring{background:#35443e;color:#f5f0e6}.night .label{color:#c6d0cb}.night .item{border-color:#44514c}
+@media(max-width:700px){#board{padding:11px}.greeting{font-size:27px}#clock{font-size:39px}#day{font-size:24px}.intro{font-size:19px}.timeline{font-size:18px}.what{font-size:19px}.when{width:92px}.bottom{border-spacing:6px 0}.message{font-size:18px}}
+
+body{padding-bottom:110px}.toolbar{position:sticky;top:0;z-index:10;background:#f4f1ea;border-bottom:1px solid #ccd5cc;padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar strong{font-size:18px}.toolbar .hint{font-size:13px}.toolbar button,.actions button{font-size:16px;padding:10px 14px;border:0;border-radius:9px;background:#2e6656;color:white;font-weight:700}.toolbar button:disabled{opacity:.5}.toolbar #status{font-size:13px;flex:1;min-width:180px}.editable{outline:2px dashed #86a89a;outline-offset:2px;min-height:1.3em;white-space:pre-wrap;overflow-wrap:anywhere;cursor:text}.editable:focus{outline:3px solid #2e6656;background:#f7fbf6;color:#26322e}.night .editable:focus{color:#26322e}.timeline .item{display:flex;gap:8px;align-items:center}.timeline .check{width:38px;flex:none}.timeline .when{width:115px;flex:none}.timeline .what{flex:1;min-width:0}.timeline .remove{border:0;background:#eee4e0;color:#763b2c;border-radius:7px;padding:7px 10px;font-size:19px}.actions{display:flex;gap:10px;justify-content:center;margin:12px}.actions button{background:#526b61}.editing-note{padding:10px 16px;font-size:14px;text-align:center}.sync{font-size:13px;text-align:center;margin:6px}.night .toolbar{background:#f4f1ea;color:#26322e}.night .actions button{color:white}@media(max-width:700px){.toolbar{position:sticky}.timeline .when{width:80px}.timeline .item{gap:5px}.timeline .remove{padding:5px}}
+
+/* Rose edition: compact landscape layout, editable fields unchanged */
+html,body{background:#fff2f6;color:#49313d}
+body{padding-bottom:0}
+.toolbar{position:sticky;top:0;background:#ffe0ea;border-bottom:1px solid #eab4c7;padding:7px 12px;gap:8px}
+.toolbar strong{font-size:16px;color:#77374f}
+.toolbar button,.actions button{background:#aa456d;padding:8px 12px;font-size:15px}
+.toolbar .hint{flex-basis:100%;font-size:12px;color:#7d5060}
+.toolbar #status{font-size:12px;color:#713c53}
+#board{padding:10px 16px;max-width:1500px;margin:auto}
+.top{border-color:#e7b4c6;padding-bottom:5px}
+#day{font-size:23px}.date{font-size:15px;margin-top:0}#clock{font-size:32px}
+.hero{display:grid;grid-template-columns:1fr 1.25fr 1.5fr;gap:10px;align-items:stretch;margin:9px 0}
+.hero>*{margin:0!important;max-width:none!important;display:flex;align-items:center;justify-content:center;padding:9px 12px!important;min-height:72px;border-radius:12px}
+.greeting{background:#fbd3e1;color:#7a3150;font-size:23px;text-align:center}
+.recurring{background:#f9dce6;color:#65364a;font-size:17px}
+.intro{background:#fffafb;font-size:18px;color:#49313d}
+.card{background:#fffafb;padding:10px 14px;margin-bottom:8px;border:1px solid #f4dce5}
+.label{font-size:13px;color:#99536d;margin-bottom:4px}
+.timeline{font-size:17px}.timeline .item{padding:4px 0}.timeline .what{font-size:17px}.timeline .when{font-size:16px;width:105px}.timeline .check{width:28px}
+.timeline .remove{background:#f9dbe5;color:#863a58;padding:3px 8px;font-size:17px}
+.actions{margin:6px}.actions button{padding:6px 10px;font-size:14px}
+.bottom{border-spacing:8px 0}.bottom .card{padding:10px 14px}
+.message{font-size:17px}.reassure{font-size:17px;padding:6px;background:#f9dce6;border-radius:10px;margin-top:6px}
+.editable{outline:2px dashed #d88eaa}.editable:focus{outline:3px solid #a8446b;background:#fff;color:#49313d}
+.editing-note{padding:6px 12px;font-size:12px;color:#805466}
+@media(min-width:900px) and (max-height:850px){.hero>*{min-height:58px}.hero{margin:6px 0}.card{padding:7px 12px}.timeline .item{padding:2px 0}.top{padding-bottom:3px}}
+@media(max-width:760px){#board{padding:10px}.hero{grid-template-columns:1fr;gap:7px}.hero>*{min-height:0;padding:9px!important}.greeting{font-size:23px}.recurring,.intro{font-size:17px}.toolbar .hint{display:none}.timeline .when{width:75px}.bottom{display:block;border-spacing:0}.bottom .card{display:block;width:100%}.toolbar{position:sticky}}
+</style></head><body><div class="toolbar"><strong>✏️ Edit Barbara's Board</strong><button id="save" type="button" disabled>Save changes</button><span id="status" role="status">Loading saved board…</span><div class="hint">Tap any dotted text to edit. Changes appear on Barbara's iPad after saving.</div></div><div id="board"><div class="top"><div><div id="day"></div><div class="date" id="date"></div></div><div id="clock"></div></div><div class="hero"><div class="greeting" id="greeting"></div><div class="recurring editable" data-field="recurring" contenteditable="true"></div><div class="intro editable" data-field="intro" contenteditable="true"></div></div><div class="card"><div class="label">Today — tap time or activity to edit</div><div class="timeline" id="timeline"></div><div class="actions"><button id="add" type="button">+ Add schedule item</button></div></div><div class="bottom"><div class="card"><div class="label">Message from family</div><div class="message editable" data-field="family" contenteditable="true"></div></div><div class="card"><div class="label">Helpful reminder</div><div class="message editable" data-field="reminder" contenteditable="true"></div></div></div><div class="reassure editable" data-field="reassure" contenteditable="true"></div></div><div class="editing-note">Changes here are drafts until you tap Save changes. Do not include sensitive medical information until database access is secured.</div><script>
+(function(){
+"use strict";
+var DB="https://barbarasboard-default-rtdb.firebaseio.com",loaded=false,dirty=false,saving=false,original=null;
+function el(id){return document.getElementById(id)}
+function status(t){el("status").textContent=t}
+function mark(){dirty=true;status("Unsaved changes — tap Save changes")}
+function make(tag,cls,txt){var x=document.createElement(tag);if(cls)x.className=cls;if(txt!=null)x.textContent=String(txt);return x}
+function addRow(r){r=r||{done:false,time:"",text:""};var row=make("div","item"+(r.done?" done":""));var check=make("input","check");check.type="checkbox";check.checked=!!r.done;check.setAttribute("aria-label","Completed");check.onchange=function(){row.classList.toggle("done",check.checked);mark()};var when=make("div","when editable",r.time||"");when.contentEditable="true";when.setAttribute("role","textbox");when.setAttribute("aria-label","Time");when.dataset.placeholder="Time";var what=make("div","what editable",r.text||"");what.contentEditable="true";what.setAttribute("role","textbox");what.setAttribute("aria-label","Activity");var del=make("button","remove","×");del.type="button";del.setAttribute("aria-label","Remove schedule item");del.onclick=function(){row.remove();mark()};[when,what].forEach(function(x){x.addEventListener("input",mark)});[check,when,what,del].forEach(function(x){row.appendChild(x)});el("timeline").appendChild(row)}
+function rowsFrom(data){if(Array.isArray(data))return data;if(data&&typeof data==="object")return Object.keys(data).sort(function(a,b){return Number(a)-Number(b)}).map(function(k){return data[k]});return []}
+function fill(d){["recurring","intro","family","reminder","reassure"].forEach(function(k){document.querySelector('[data-field="'+k+'"]').textContent=d[k]||""});el("timeline").textContent="";rowsFrom(d.timeline).forEach(function(r){if(r)addRow(r)});loaded=true;dirty=false;original=JSON.stringify(d);el("save").disabled=false;status("Board loaded. Tap dotted text to edit.")}
+function request(method,payload,callback){var x=new XMLHttpRequest();x.open(method,DB+"/board.json"+(method==="GET"?"?t="+Date.now():""),true);x.timeout=15000;if(method!=="GET")x.setRequestHeader("Content-Type","application/json");x.onreadystatechange=function(){if(x.readyState===4)callback(x.status,x.responseText)};x.onerror=function(){callback(0,"")};x.ontimeout=function(){x.abort()};x.send(payload||null)}
+function load(){request("GET",null,function(code,body){if(code!==200){status("Unable to load database ("+code+"). Saving disabled.");return}try{var d=JSON.parse(body);if(!d||typeof d!=="object")throw Error("Empty board");fill(d)}catch(e){status("Board data unavailable. Saving disabled.")}})}
+function gather(){var d={};["recurring","intro","family","reminder","reassure"].forEach(function(k){d[k]=document.querySelector('[data-field="'+k+'"]').innerText.trim()});d.timeline=[];Array.prototype.forEach.call(el("timeline").children,function(row){d.timeline.push({done:row.querySelector("input").checked,time:row.querySelector(".when").innerText.trim(),text:row.querySelector(".what").innerText.trim()})});return d}
+function save(){if(!loaded||saving)return;if(!dirty){status("No changes to save.");return}if(!confirm("Publish these changes to Barbara's iPad?"))return;var snapshot=JSON.stringify(gather());saving=true;el("save").disabled=true;status("Saving…");request("PUT",snapshot,function(code,body){saving=false;el("save").disabled=false;if(code>=200&&code<300){original=snapshot;if(JSON.stringify(gather())===snapshot){dirty=false;status("✓ Saved! iPad updates in about 20 seconds.")}else{dirty=true;status("Saved, but you made more edits. Save again.")}}else{status("Not saved (HTTP "+code+"). Your edits remain here; retry.")}})}
+function clock(){var d=new Date(),h=d.getHours(),m=d.getMinutes();el("clock").textContent=(h%12||12)+":"+(m<10?"0":"")+m+(h>=12?" PM":" AM");el("day").textContent=d.toLocaleDateString("en-US",{weekday:"long"});el("date").textContent=d.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"});el("greeting").textContent=(h<12?"Good morning":h<17?"Good afternoon":"Good evening")+", Barbara"}
+Array.prototype.forEach.call(document.querySelectorAll("[data-field]"),function(x){x.addEventListener("input",mark)});el("add").onclick=function(){addRow();mark()};el("save").onclick=save;window.addEventListener("beforeunload",function(e){if(dirty){e.preventDefault();e.returnValue=""}});clock();setInterval(clock,30000);load();
+})();
+</script></body></html>
